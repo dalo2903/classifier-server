@@ -1,1 +1,1 @@
-A classifier server with Gunicorn, nginx, keras
+A classifier server with Gunicorn, nginx, flask, keras
