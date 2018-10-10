@@ -25,7 +25,7 @@ def classify(file_path):
     from keras_video_classifier.library.recurrent_networks import VGG16BidirectionalLSTMVideoClassifier
 
     vgg16_include_top = False
-    model_dir_path = os.path.join(os.path.dirname(__file__), 'models/UCF-101')
+    model_dir_path = os.path.join(os.path.dirname(__file__), 'models/dataset')
 
     config_file_path = VGG16BidirectionalLSTMVideoClassifier.get_config_file_path(model_dir_path,
                                                                                   vgg16_include_top=vgg16_include_top)
