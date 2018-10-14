@@ -38,7 +38,6 @@ def extract_vgg16_features_live(model, video_input_file_path):
 def extract_vgg16_features(model, video_input_file_path, feature_output_file_path):
     if os.path.exists(feature_output_file_path):
         return np.load(feature_output_file_path)
-    count = 0
     print('Extracting frames from video: ', video_input_file_path)
     vidcap = cv2.VideoCapture(video_input_file_path)
     success, image = vidcap.read()
@@ -71,7 +70,7 @@ def extract_vgg16_features(model, video_input_file_path, feature_output_file_pat
             # count = count + 1
         #print('After if', count)
     unscaled_features = np.array(features)
-    #np.save(feature_output_file_path, unscaled_features)
+    np.save(feature_output_file_path, unscaled_features)
     return unscaled_features
 
 
