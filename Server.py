@@ -1,11 +1,12 @@
-
 #import numpy as np
 from flask import Flask, request
-
+import re
 import sys
 import os
 import requests
 import numpy as np
+import keras_video_classifier
+import json
 
 def patch_path(path):
     return os.path.join(os.path.dirname(__file__), path)
@@ -19,9 +20,15 @@ def hello():
 @app.route('/classify')
 def classify_video():
     download_path = patch_path('downloads/')
-    url = request.args.get('url', '')
+    url = request.args.get('url')
     file_path = download_file(url, download_path)
-    return classify(file_path)
+    result = classify(file_path)
+    data = {}
+    data['name'] = ''
+    data['result'] = result
+    response = json.dumps(data)
+    return response
+
 
 
 def classify(file_path):
@@ -45,7 +52,7 @@ def classify(file_path):
 
 
     predicted_label = predictor.predict(file_path)
-    return('predicted: ' + predicted_label)
+    return(predicted_label)
 
 
 def download_file(url, download_path):
