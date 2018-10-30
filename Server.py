@@ -4,6 +4,7 @@ from flask import Flask, request
 
 import sys
 import os
+import re
 import requests
 import numpy as np
 
@@ -16,12 +17,19 @@ app = Flask(__name__)
 def hello():
     return 'hello'
 
+@app.route('/download')
+def download_test():
+    download_path = patch_path('downloads/')
+
+
 @app.route('/classify')
 def classify_video():
     download_path = patch_path('downloads/')
     url = request.args.get('url', '')
     file_path = download_file(url, download_path)
-    return classify(file_path)
+    result = classify(file_path)
+    os.remove(file_path)
+    return result
 
 
 def classify(file_path):
@@ -36,14 +44,9 @@ def classify(file_path):
                                                                                   vgg16_include_top=vgg16_include_top)
     weight_file_path = VGG16BidirectionalLSTMVideoClassifier.get_weight_file_path(model_dir_path,
                                                                                   vgg16_include_top=vgg16_include_top)
-
     np.random.seed(42)
-
-
     predictor = VGG16BidirectionalLSTMVideoClassifier()
     predictor.load_model(config_file_path, weight_file_path)
-
-
     predicted_label = predictor.predict(file_path)
     return('predicted: ' + predicted_label)
 
