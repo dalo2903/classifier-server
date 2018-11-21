@@ -14,7 +14,7 @@ import asyncio
 # from keras import backend as K
 SECRET_KEY = 'hK0Oeiy2zft0ZZtbmaawNW5zT0Ebcybn'
 ADMIN_ID = '5b86b4a8a96c6a000446705b'
-GODSEYE_URL = 'http://localhost/api/visual-data/classified'
+GODSEYE_URL = 'http://god-eye-cc14.herokuapp.com/api/visual-data/classified'
 
 def patch_path(path):
     return os.path.join(os.path.dirname(__file__), path)
