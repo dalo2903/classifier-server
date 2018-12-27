@@ -23,12 +23,13 @@ def get_rotation(file_path_with_file_name):
     cmd = "-loglevel error -select_streams v:0 -show_entries stream_tags=rotate -of default=nw=1:nk=1"
     args = shlex.split(cmd)
     print(file_path_with_file_name)
-    ffprobe_location = r'C:\Users\Lenovo\Downloads\Compressed\ffmpeg-20181029-32d021c-win64-static\ffmpeg-20181029-32d021c-win64-static\bin\ffprobe.exe'
+    # ffprobe_location = r'C:\Users\Lenovo\Downloads\Compressed\ffmpeg-20181029-32d021c-win64-static\ffmpeg-20181029-32d021c-win64-static\bin\ffprobe.exe'
+    ffprobe_location = r'ffprobe'
     args.insert(0, ffprobe_location)
 
     args.append(file_path_with_file_name)
     # run the ffprobe process, decode stdout into utf-8 & convert to JSON
-    ffprobe_output = subprocess.check_output(args, shell=True).decode('utf-8')
+    ffprobe_output = subprocess.check_output(args).decode('utf-8')
     if len(ffprobe_output) > 0:  # Output of cmdis None if it should be 0
         ffprobe_output = json.loads(ffprobe_output)
         rotation = ffprobe_output
